@@ -1,0 +1,93 @@
+{
+  "part_size": 2013265920,
+  "files": [
+    {
+      "source_relative_path": "checkpoint-best.pth",
+      "name": "checkpoint-best.pth",
+      "size": 4375388127,
+      "sha256": "1125ce855e42544d1043f5df3c53059e8936ca6bde7d3ebea1c70fc7430f018b",
+      "parts": [
+        {
+          "name": "checkpoint-best.pth.part001",
+          "size": 2013265920,
+          "sha256": "47e50b45617ba3c92e7f294072e6338d3c51fed0504b1849fdc17fae53982091"
+        },
+        {
+          "name": "checkpoint-best.pth.part002",
+          "size": 2013265920,
+          "sha256": "47e85265a1c93c74991e64cfdae206204f04f02a0dc6f342f4e95dff8ac310a0"
+        },
+        {
+          "name": "checkpoint-best.pth.part003",
+          "size": 348856287,
+          "sha256": "8749e2743982515e2d3f4fcbcb156ad44ad17ba30a70f4884f0e89c48943d553"
+        }
+      ],
+      "verification": {
+        "concatenated_parts_sha256": "1125ce855e42544d1043f5df3c53059e8936ca6bde7d3ebea1c70fc7430f018b",
+        "passed": true
+      }
+    },
+    {
+      "source_relative_path": "checkpoint-best_macro.pth",
+      "name": "checkpoint-best_macro.pth",
+      "size": 4375404281,
+      "sha256": "25669e8e449ac467edb8ee356386510a094250454d4032b9d5fd76b36964089b",
+      "parts": [
+        {
+          "name": "checkpoint-best_macro.pth.part001",
+          "size": 2013265920,
+          "sha256": "ccbc42d09914faa84e15504db52f0ae2c25e9ca4acda8b6a164347e910808131"
+        },
+        {
+          "name": "checkpoint-best_macro.pth.part002",
+          "size": 2013265920,
+          "sha256": "822562adadf27870288b96c880aa94ef925fcfd3e4af9856c7fdd5e60e35ab8a"
+        },
+        {
+          "name": "checkpoint-best_macro.pth.part003",
+          "size": 348872441,
+          "sha256": "c0d39314e5667cc2f13737a1c0d53eb34c94715ab7fbcc04a053ef0730c7fc6f"
+        }
+      ],
+      "verification": {
+        "concatenated_parts_sha256": "25669e8e449ac467edb8ee356386510a094250454d4032b9d5fd76b36964089b",
+        "passed": true
+      }
+    },
+    {
+      "source_relative_path": "resnet101_seed2026_best.pth",
+      "name": "resnet101_seed2026_best.pth",
+      "size": 171084146,
+      "sha256": "2a7ef06630354343ea17c6cc101456b7605ce41f7f67915b90214d53f7e03bdb",
+      "parts": [
+        {
+          "name": "resnet101_seed2026_best.pth",
+          "size": 171084146,
+          "sha256": "2a7ef06630354343ea17c6cc101456b7605ce41f7f67915b90214d53f7e03bdb"
+        }
+      ],
+      "verification": {
+        "concatenated_parts_sha256": "2a7ef06630354343ea17c6cc101456b7605ce41f7f67915b90214d53f7e03bdb",
+        "passed": true
+      }
+    },
+    {
+      "source_relative_path": "resnet50_seed2026_best.pth",
+      "name": "resnet50_seed2026_best.pth",
+      "size": 94799716,
+      "sha256": "155f230275f15d8e1252a0253ce158af450e5fa56ac02623519272fc03d23213",
+      "parts": [
+        {
+          "name": "resnet50_seed2026_best.pth",
+          "size": 94799716,
+          "sha256": "155f230275f15d8e1252a0253ce158af450e5fa56ac02623519272fc03d23213"
+        }
+      ],
+      "verification": {
+        "concatenated_parts_sha256": "155f230275f15d8e1252a0253ce158af450e5fa56ac02623519272fc03d23213",
+        "passed": true
+      }
+    }
+  ]
+}

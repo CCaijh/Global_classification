@@ -1,5 +1,7 @@
 # Global classification
 
+**简体中文** | [English](README_EN.md)
+
 ## 项目目录
 
 - [AdaptiveNN](AdaptiveNN/README.md)：AdaptiveNN 模型、训练代码及使用说明。

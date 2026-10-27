@@ -7,40 +7,52 @@
 - [AdaptiveNN](AdaptiveNN/README.md): AdaptiveNN models, training code, and usage instructions.
 - [ResNet](ResNet/README.md): ResNet training and experiment code, with usage instructions.
 - [weights](weights/README.md): Instructions for downloading, merging, and verifying model weights.
-- [crop&resize.py](crop%26resize.py): Batch-crop images organized by year and resize them to a specified size.
+- [crop_ad_resize.py](crop_ad_resize.py): Batch-crop images, add side padding with background color alignment, and resize them to `448×448`.
 - [part_random_noise_newest.py](part_random_noise_newest.py): Apply local noise augmentation and balance the number of samples per class.
 
 Enter the relevant project directory and follow its README to install dependencies and run the program.
 
-## Image preprocessing: cropping and resizing
+## Image preprocessing: cropping, padding, and resizing
 
-[`crop&resize.py`](crop%26resize.py) uses Pillow to crop a specified region and then resize the image. By default, it resizes the `633×332`-pixel crop directly to `448×448`. Edit the following parameters in the script before running it. The current input and output paths are local paths and must be replaced with your own data paths.
+[`crop_ad_resize.py`](crop_ad_resize.py) uses OpenCV and NumPy to crop images, add side padding, align the background color, and resize the result. Before running the script, edit `path` (the input directory) and `outpath` (the output directory) at the top of the source file. The current paths are local paths and must be replaced with your own data paths.
 
-| Parameter | Description | Current setting |
-| --- | --- | --- |
-| `source_dir` | Root directory of the original images, with subdirectories named by year | Set to your actual path |
-| `target_dir` | Root directory for processed images | Set to your actual path |
-| `years_to_process` | Names of the year directories to process | `2009`–`2013`, `2017`–`2019` |
-| `crop_box` | Crop region in pixels, in `(left, top, right, bottom)` order | `(176, 199, 809, 531)` |
-| `resize_size` | Output size in `(width, height)` order | `(448, 448)` |
+The current settings are listed below. All coordinates and dimensions are in pixels:
 
-Both input and output are organized by year, for example:
+| Setting | Current value and description |
+| --- | --- |
+| Input directory `path` | Directory containing the images to process |
+| Output directory `outpath` | Directory for processed images; created automatically if it does not exist |
+| Crop slice | `img_array[200:531, 177:807, :]`: left `177`, top `200`, right `807`, bottom `531`; the right and bottom bounds are exclusive |
+| Crop size | Width `630` × height `331` |
+| Side padding | `39` columns on each side, producing width `708` × height `331` |
+| Background color | `(172, 177, 187)` in OpenCV BGR order |
+| Row mean threshold | `160 < meanOfRow[i] < 205`; the side padding in qualifying rows is filled with the background color |
+| Output size | `(448, 448)`, using `cv2.INTER_CUBIC` interpolation |
+
+The processing steps are:
+
+1. Read the image with `cv2.IMREAD_UNCHANGED`, crop the specified region, and set the crop's bottom row to the background color.
+2. Create a white canvas with `39` additional columns on each side, place the cropped image on it, and set designated boundary pixels to the background color.
+3. Compute the mean across channels and columns for each row of the canvas, then fill both side strips with the background color in rows that meet the threshold above.
+4. Resize the padded image to `448×448` and save it with its original filename.
+
+The script processes one directory at a time. Example input and output structure:
 
 ```text
-source_dir/                 target_dir/
-├── 2009/                   ├── 2009/
-│   └── example.png         │   └── example.png
-└── 2010/                   └── 2010/
-    └── example.png             └── example.png
+path/                       outpath/
+├── example_01.png          ├── example_01.png
+└── example_02.png          └── example_02.png
 ```
 
-The script processes only images directly inside the selected year directories with the lowercase `.png` extension. The output preserves the year directories and original filenames. Make sure all selected year directories exist. Images with the same names in the output directories will be overwritten.
+The script processes only images directly inside the input directory with the lowercase `.png` extension. If your data is organized by year, set `path` and `outpath` to the corresponding year directories and run the script once for each year. Use a valid input directory. Images with the same names in the output directory will be overwritten.
 
-Install the dependency and run the script from the repository root. Keep the quotation marks because the filename contains `&`:
+For the fixed crop, 8-bit, three-channel color images at least `807` pixels wide and `531` pixels high are recommended. The crop, padding, and boundary positions are hard-coded in the source. When changing them, update the related indices together, including the right padding range `669:708`. These settings are not command-line options.
+
+The script imports OpenCV, NumPy, scikit-image, and Pillow. Install all four packages, even though the current processing code does not use the scikit-image or Pillow imports. Run the following from the repository root:
 
 ```sh
-python -m pip install Pillow
-python "crop&resize.py"
+python -m pip install opencv-python numpy scikit-image Pillow
+python crop_ad_resize.py
 ```
 
 ## Image augmentation: local noise and class balancing
